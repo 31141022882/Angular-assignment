@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { User } from './user.model';
 
 @Component({
   selector: 'app-name-editor',
@@ -45,7 +46,10 @@ export class NameEditorComponent implements OnInit {
       console.log("Form is invalid");
       return;
     }
-
-    console.log("LOGGED IN SUCCESSFUL");
+    let user = new User();
+    user.firstName = this.profileForm.get("firstName").value;
+    user.lastName = this.profileForm.get("lastName").value;
+    console.log(user.firstName);
+    console.log(user.lastName);
   }
 }
