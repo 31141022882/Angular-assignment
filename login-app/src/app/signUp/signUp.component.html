@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <h3 style="text-align:center; padding: 20px 0 5px;">Sign Up</h3>
+      <form [formGroup]="profileForm">
+        <div class="form-group">
+          <label>
+            First name:
+          </label>
+          <input type="text" class="form-control" formControlName="firstName"
+            [class.is-invalid]="getFirstName.touched && getFirstName.invalid"
+            [class.is-valid]="getFirstName.touched && getFirstName.valid"/>
+          <p
+            *ngIf="getFirstName.touched && getFirstName.invalid"
+            style="color: red;"
+          >
+            Please enter your first name
+          </p>
+        </div>
+        <div class="form-group">
+          <label>
+            Last name:
+          </label>
+          <input type="text" class="form-control" formControlName="lastName" 
+            [class.is-invalid]="getLastName.touched && getLastName.invalid"
+            [class.is-valid]="getLastName.touched && getLastName.valid"/>
+            <p
+              *ngIf="getLastName.touched && getLastName.invalid"
+              style="color: red;"
+            >
+              Please enter your last name
+            </p>
+        </div>
+        <div class="form-group">
+          <label>
+            Email:
+          </label>
+          <input type="email" class="form-control" formControlName="email"       
+            [class.is-invalid]="getEmail.touched && getEmail.invalid"
+            [class.is-valid]="getEmail.touched && getEmail.valid"/>
+          <p
+            *ngIf="getEmail.touched && getEmail.invalid"
+            style="color: red;"
+          >
+            Your input email is invalid
+          </p>
+        </div>
+        <div class="form-group">
+          <label>
+            Password:
+          </label>
+          <input
+            class="form-control"
+            type="password"
+            formControlName="password"
+            [class.is-invalid]="getPassword.touched && getPassword.invalid"
+            [class.is-valid]="getPassword.touched && getPassword.valid"
+          />
+          <p
+            *ngIf="getPassword.touched && getPassword.invalid"
+            style="color: red;"
+          >
+            Your input password is invalid
+          </p>
+        </div>
+        <div class="form-group">
+          <label>
+            Reenter password:
+          </label>
+          <input type="password" class="form-control" formControlName="confirmedPassword" 
+            [class.is-invalid]="getConfirmedPassword.touched && getConfirmedPassword.invalid || getPassword.value != getConfirmedPassword.value"
+            [class.is-valid]="getConfirmedPassword.touched && getConfirmedPassword.valid && getPassword.value == getConfirmedPassword.value"/>
+          <p
+          *ngIf="getConfirmedPassword.touched && getConfirmedPassword.invalid || getPassword.value != getConfirmedPassword.value"
+          style="color: red;">Your confirmed password does not match</p>
+        </div>
+
+        <button class="btn btn-primary btn-block" [disabled]="profileForm.invalid || getPassword.value != getConfirmedPassword.value" (click)="signUp()">
+          Sign up
+        </button>
+
+        
+      </form>
+      <div style="text-align:center; padding: 10px 0;">
+        <a routerLink="/login">Login to your account?</a>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <h3 style="text-align:center; padding: 20px 0 5px;">Log In</h3>
+      <form [formGroup]="loginForm">        
+        <div class="form-group">
+          <label>
+            User Name:
+          </label>
+          <input type="email" class="form-control" formControlName="userName"       
+            [class.is-invalid]="getUserName.touched && getUserName.invalid"
+            [class.is-valid]="getUserName.touched && getUserName.valid"/>
+        </div>
+        <div class="form-group">
+          <label>
+            Password:
+          </label>
+          <input
+            class="form-control"
+            type="password"
+            formControlName="password"
+            [class.is-invalid]="getPassword.touched && getPassword.invalid"
+            [class.is-valid]="getPassword.touched && getPassword.valid"
+          />
+        </div>
+
+        <button class="btn btn-primary btn-block" [disabled]="loginForm.invalid" (click)="login()">
+          Login
+        </button>
+        <div>
+        </div>
+        <p
+          *ngIf="getUserName.touched && getUserName.invalid"
+          style="color: red;"
+        >
+          Please enter your email.
+        </p>
+        <p
+          *ngIf="user && user.email != getUserName.value || user.password != getPassword.value"
+          style="color: red;"
+        >
+          Your username or password is incorrect.
+        </p>
+
+      </form>
+      <div style="text-align:center; padding: 5px 0 10px;">
+        <a routerLink="/register">Login to your account?</a>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
