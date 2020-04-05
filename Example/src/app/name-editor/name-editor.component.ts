@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { User } from './user.model';
+import { User } from '../models/user.model';
+import { AuthService } from '../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-name-editor',
@@ -11,18 +13,14 @@ import { User } from './user.model';
 })
 export class NameEditorComponent implements OnInit {
   profileForm: FormGroup;
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(8)]],
+      firstName: [''],
       lastName: [''],
       password: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')
-        ]
+        ''
       ],
       address: this.fb.group({
         street: [''],
@@ -42,14 +40,13 @@ export class NameEditorComponent implements OnInit {
   }
 
   login() {
-    if (this.profileForm.invalid) {
-      console.log("Form is invalid");
-      return;
+    console.log("asdfasdf");
+    this.authService.isLoggedIn = this.getPassword.value === "huyenhuyen";
+    if (this.authService.callBackUrl) {
+      this.router.navigate([this.authService.callBackUrl])
+    } else {
+      console.log("default");
     }
-    let user = new User();
-    user.firstName = this.profileForm.get("firstName").value;
-    user.lastName = this.profileForm.get("lastName").value;
-    console.log(user.firstName);
-    console.log(user.lastName);
+    return true;
   }
 }
